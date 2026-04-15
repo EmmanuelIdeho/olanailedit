@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ola's Nailedit – Acrylic Nails</title>
+  {% load static %}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-script">Ola</span><span class="logo-block">NAILEDIT</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking" class="nav-cta">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    {% if hero %}
+    <div class="hero-bg" style="background-image: url('{{ hero.image.url }}')"></div>
+    {% else %}
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1800&q=80')"></div>
+    {% endif %}
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Nigerian-Canadian Nail Artistry</p>
+      <h1 class="hero-headline">
+        <em>Luxury Nails,</em><br>
+        Made For You.
+      </h1>
+      <p class="hero-sub">Custom acrylic sets crafted with precision and care.<br>Based in the Greater Toronto Area.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-primary">Book Your Appointment</a>
+        <a href="#gallery" class="btn-ghost">See the Work</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT STRIP -->
+  <section class="about-strip">
+    <div class="strip-inner">
+      <div class="strip-item">
+        <span class="strip-num">01</span>
+        <span class="strip-text">Custom Acrylic Sets</span>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-item">
+        <span class="strip-num">02</span>
+        <span class="strip-text">GTA-Based Studio</span>
+      </div>
+      <div class="strip-divider"></div>
+      <div class="strip-item">
+        <span class="strip-num">03</span>
+        <span class="strip-text">By Appointment Only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY REEL -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-header">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">The Work</h2>
+      <p class="section-sub">Every set is designed to fit your style, shape, and vibe.</p>
+    </div>
+
+    <div class="reel-wrapper">
+      <div class="reel-track" id="reel-track">
+        {% if gallery_images %}
+          {% for img in gallery_images %}
+          <div class="reel-slide">
+            <div class="slide-img" style="background-image: url('{{ img.image.url }}')"></div>
+            {% if img.title %}<p class="slide-caption">{{ img.title }}</p>{% endif %}
+          </div>
+          {% endfor %}
+          <!-- Duplicate for infinite loop -->
+          {% for img in gallery_images %}
+          <div class="reel-slide clone">
+            <div class="slide-img" style="background-image: url('{{ img.image.url }}')"></div>
+            {% if img.title %}<p class="slide-caption">{{ img.title }}</p>{% endif %}
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <button class="reel-btn reel-prev" id="reel-prev" aria-label="Previous">&#8592;</button>
+      <button class="reel-btn reel-next" id="reel-next" aria-label="Next">&#8594;</button>
+    </div>
+
+    <div class="reel-dots" id="reel-dots"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <p class="section-label">Menu</p>
+      <h2 class="section-title">Services & Pricing</h2>
+    </div>
+    <div class="services-grid">
+      {% if services %}
+        {% for service in services %}
+        <div class="service-card" data-service-id="{{ service.pk }}" data-service-name="{{ service.name }}" data-service-price="{{ service.price }}">
+          <div class="service-card-inner">
+            <h3 class="service-name">{{ service.name }}</h3>
+            {% if service.description %}<p class="service-desc">{{ service.description }}</p>{% endif %}
+            <div class="service-footer">
+              <span class="service-price">${{ service.price }}</span>
+              <span class="service-duration">{{ service.duration_minutes }} min</span>
+            </div>
+          </div>
+          <button class="service-select-btn" onclick="selectService({{ service.pk }}, '{{ service.name }}', '{{ service.price }}')">
+            Select →
+          </button>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="service-card">
+          <div class="service-card-inner">
+            <h3 class="service-name">Nothing</h3>
+            <p class="service-desc">No services for now. Please come back later 🙏🏿</p>
+            <div class="service-footer">
+              <span class="service-price">$0</span>
+              <span class="service-duration">0 min</span>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking-section" id="booking">
+    <div class="booking-bg"></div>
+    <div class="booking-inner">
+      <div class="booking-header">
+        <p class="section-label light">Appointments</p>
+        <h2 class="section-title light">Book Your Session</h2>
+        <p class="booking-sub">Fill in your details below and Ola will confirm your appointment shortly.</p>
+      </div>
+
+      <div class="booking-form-wrap">
+        <div class="booking-progress">
+          <div class="progress-step active" data-step="1"><span>1</span> Your Details</div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="2"><span>2</span> Service</div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="3"><span>3</span> Date & Time</div>
+        </div>
+
+        <form id="booking-form" novalidate>
+          {% csrf_token %}
+
+          <!-- Step 1: Personal Info -->
+          <div class="form-step active" id="step-1">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="client-name">Full Name</label>
+                <input type="text" id="client-name" name="name" placeholder="Your full name" required />
+              </div>
+            </div>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="client-email">Email</label>
+                <input type="email" id="client-email" name="email" placeholder="you@email.com" required />
+              </div>
+              <div class="form-group">
+                <label for="client-phone">Phone</label>
+                <input type="tel" id="client-phone" name="phone" placeholder="+1 (647) 000-0000" required />
+              </div>
+            </div>
+            <button type="button" class="btn-next" onclick="goToStep(2)">Continue →</button>
+          </div>
+
+          <!-- Step 2: Service -->
+          <div class="form-step" id="step-2">
+            <p class="step-instruction">Choose a service for your appointment:</p>
+            <div class="service-select-grid" id="service-select-grid">
+              {% if services %}
+                {% for service in services %}
+                <div class="service-option" data-id="{{ service.pk }}" onclick="pickService({{ service.pk }}, '{{ service.name }}', '{{ service.price }}')">
+                  <strong>{{ service.name }}</strong>
+                  <span>${{ service.price }} · {{ service.duration_minutes }} min</span>
+                </div>
+                {% endfor %}
+              {% else %}
+                <div class="service-option" data-id="1" onclick="pickService(1, 'Full Acrylic Set', '80')">
+                  <strong>Full Acrylic Set</strong><span>$80 · 90 min</span>
+                </div>
+                <div class="service-option" data-id="2" onclick="pickService(2, 'Acrylic Infill', '55')">
+                  <strong>Acrylic Infill</strong><span>$55 · 60 min</span>
+                </div>
+                <div class="service-option" data-id="3" onclick="pickService(3, 'Nail Art Add-On', '20')">
+                  <strong>Nail Art Add-On</strong><span>from $20 · +30 min</span>
+                </div>
+                <div class="service-option" data-id="4" onclick="pickService(4, 'Soak-Off Removal', '25')">
+                  <strong>Soak-Off Removal</strong><span>$25 · 30 min</span>
+                </div>
+              {% endif %}
+            </div>
+            <input type="hidden" id="selected-service-id" name="service_id" />
+            <div class="form-nav">
+              <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+              <button type="button" class="btn-next" onclick="goToStep(3)">Continue →</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Date & Time -->
+          <div class="form-step" id="step-3">
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="appt-date">Preferred Date</label>
+                <input type="date" id="appt-date" name="date" required />
+              </div>
+              <div class="form-group">
+                <label for="appt-time">Available Time Slot</label>
+                <select id="appt-time" name="time_slot_id" required>
+                  <option value="">Select a time…</option>
+                  {% if time_slots %}
+                    {% for slot in time_slots %}
+                    <option value="{{ slot.pk }}">{{ slot.get_day_of_week_display }} – {{ slot.start_time|time:"g:i A" }} to {{ slot.end_time|time:"g:i A" }}</option>
+                    {% endfor %}
+                  {% else %}
+                    <option value="1">Saturday – 10:00 AM to 11:30 AM</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="appt-notes">Additional Notes <span class="optional">(optional)</span></label>
+              <textarea id="appt-notes" name="notes" rows="3" placeholder="Nail shape preference, allergies, etc."></textarea>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn-back" onclick="goToStep(2)">← Back</button>
+              <button type="submit" class="btn-submit">Request Appointment</button>
+            </div>
+          </div>
+
+        </form>
+
+        <!-- Success State -->
+        <div class="booking-success" id="booking-success" style="display:none;">
+          <div class="success-icon">✓</div>
+          <h3>You're on the list!</h3>
+          <p>Your appointment request has been received. Ola will reach out to confirm your booking shortly. Check your email for updates.</p>
+          <button onclick="resetForm()" class="btn-ghost dark">Book Another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-script">Ola</span><span class="logo-block">NAILEDIT</span>
+        <p>Acrylic Nails · Greater Toronto Area</p>
+      </div>
+      <div class="footer-links">
+        <a href="#gallery">Gallery</a>
+        <a href="#services">Services</a>
+        <a href="#booking">Book Now</a>
+      </div>
+      <p class="footer-copy">©2026 OlaNailedit. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
