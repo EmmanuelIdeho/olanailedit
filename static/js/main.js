@@ -167,6 +167,20 @@ document.getElementById('booking-form')?.addEventListener('submit', async (e) =>
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
+  if(document.getElementById('appt-time').value == ''){
+    alert("You forgot to choose a timeslot");
+    btn.disabled = false;
+    btn.textContent = 'REQUEST APPOINTMENT';
+    return;
+  }
+
+  if(document.getElementById('appt-date').value == ''){
+    alert("You forgot to choose a date");
+    btn.disabled = false;
+    btn.textContent = 'REQUEST APPOINTMENT';
+    return;
+  }
+
   const formData = {
     name: document.getElementById('client-name').value,
     email: document.getElementById('client-email').value,
@@ -178,6 +192,7 @@ document.getElementById('booking-form')?.addEventListener('submit', async (e) =>
   };
 
   const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  
 
   try {
     const resp = await fetch('/book/', {
