@@ -6,6 +6,8 @@ while ! nc -z $DB_HOST $DB_PORT; do
 done
 echo "PostgreSQL is ready."
 
+python manage.py collectstatic --noinput
+
 echo "Running migrations..."
 python manage.py migrate --noinput
 
