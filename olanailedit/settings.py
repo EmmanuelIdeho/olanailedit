@@ -9,6 +9,8 @@ DEBUG = config('SETTING_DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = config('SETTING_ALLOWED', cast=lambda v: [s.strip() for s in v.split(',')])
 
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
