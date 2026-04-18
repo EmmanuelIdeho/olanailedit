@@ -11,4 +11,7 @@ python manage.py collectstatic --noinput
 echo "Running migrations..."
 python manage.py migrate --noinput
 
+echo "Creating superuser..."
+python manage.py createsuperuser --noinput || true
+
 exec "$@"
