@@ -7,6 +7,7 @@ done
 echo "PostgreSQL is ready."
 
 python manage.py collectstatic --noinput
+echo "Static files collected to: $(ls /app/staticfiles/)"
 
 echo "Running migrations..."
 python manage.py migrate --noinput
