@@ -56,6 +56,8 @@ def book_appointment(request):
             f"Hello {appointment.client_name}, thank you for booking an appointment with me! Your appointment for {appointment.service} is on {appointment.date} from {time_slot.start_time} to {time_slot.end_time} at 3311 Address Drive. The appointment is PENDING right now, but I'll send you a confirmation message soon!",
             settings.EMAIL_HOST_USER,
             [appointment.client_email, settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        
         )
 
 

@@ -29,4 +29,4 @@ RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["gunicorn", "olanailedit.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "olanailedit.wsgi:application", "--bind", "0.0.0.0:8000", "--timeout", "120"]

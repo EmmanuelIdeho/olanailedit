@@ -54,6 +54,7 @@ class AppointmentAdmin(admin.ModelAdmin):
                     f"Hello {obj.client_name}, thank you for booking an appointment with me! Your appointment for {obj.service} is on {obj.date} at 3311 Address Drive.",
                     settings.EMAIL_HOST_USER,
                     [obj.client_email, settings.EMAIL_HOST_USER ],
+                     fail_silently=False,
                 )
 
                 elif new_status=='cancelled':
@@ -62,9 +63,10 @@ class AppointmentAdmin(admin.ModelAdmin):
                     f"Hello {obj.client_name}, thank you for booking an appointment with me. Unfortunately, your appointment for {obj.service} on {obj.date} had to be cancelled at the moment. I will get back to you soon.",
                     settings.EMAIL_HOST_USER ,
                     [obj.client_email, settings.EMAIL_HOST_USER ],
+                     fail_silently=False,
                 )
         except Exception as e:
-            print("Admin was not able to send email: {e}")
+            print(f"Admin was not able to send email: {e}")
 
 
        
