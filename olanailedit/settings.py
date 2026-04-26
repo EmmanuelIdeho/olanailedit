@@ -12,6 +12,7 @@ ALLOWED_HOSTS = config('SETTING_ALLOWED', cast=lambda v: [s.strip() for s in v.s
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
