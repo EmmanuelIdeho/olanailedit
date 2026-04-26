@@ -1,11 +1,12 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import HeroImage, NailGalleryImage, Service, AvailableTimeSlot, Appointment
 from django.conf import settings
 from django.core.mail import send_mail
 
 
 @admin.register(HeroImage)
-class HeroImageAdmin(admin.ModelAdmin):
+class HeroImageAdmin(ModelAdmin):
     list_display = ['caption', 'is_active', 'updated_at']
     list_editable = ['is_active']
     fields = ['image', 'caption', 'is_active']
@@ -15,27 +16,27 @@ class HeroImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(NailGalleryImage)
-class NailGalleryImageAdmin(admin.ModelAdmin):
+class NailGalleryImageAdmin(ModelAdmin):
     list_display = ['title', 'order', 'is_active']
     list_editable = ['order', 'is_active']
     ordering = ['order']
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(ModelAdmin):
     list_display = ['name', 'price', 'duration_minutes', 'order', 'is_active']
     list_editable = ['price', 'order', 'is_active']
 
 
 @admin.register(AvailableTimeSlot)
-class AvailableTimeSlotAdmin(admin.ModelAdmin):
+class AvailableTimeSlotAdmin(ModelAdmin):
     list_display = ['day_of_week', 'start_time', 'end_time', 'is_active']
     list_editable = ['is_active']
     list_filter = ['day_of_week', 'is_active']
 
 
 @admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
+class AppointmentAdmin(ModelAdmin):
     list_display = ['client_name', 'service', 'date', 'time_slot', 'status', 'created_at']
     list_filter = ['status', 'date']
     list_editable = ['status']
