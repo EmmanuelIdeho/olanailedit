@@ -1,5 +1,5 @@
 /*
-   OLA'S NAILEDIT — MAIN CSS
+   OLA NAILEDIT - MAIN CSS
    Refined luxury nail tech aesthetic
    Palette: Deep charcoal, warm ivory, purple, soft blush
  */
@@ -102,6 +102,7 @@ body {
   border-radius: 2px;
   letter-spacing: 0.08em;
   transition: background var(--transition);
+  white-space: nowrap;
 }
 .nav-links .nav-cta:hover { background: var(--purple-dark); }
 
