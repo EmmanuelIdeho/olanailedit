@@ -4,7 +4,7 @@ A single-page appointment booking website for Ola's Nailedit Acrylic Nails.
 
 ## Setup
 
-# Environment variables
+### Environment variables
 Create a .env file based on the given .env.template file
 ```env
 SECRET_KEY=<your_secret_key_here>
@@ -21,7 +21,7 @@ SETTING_DEBUG=True #False, in production
 SETTING_ALLOWED=* # In production, your deployment domain
 CSRF_TRUSTED_ORIGINS=http://0.0.0.0:8000 # In production, your deployment domain with https tag included
 ```
-# Local without Docker 
+### Local without Docker 
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -36,7 +36,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-# Local with Docker
+### Local with Docker
 ```bash
 docker-compose up --build
 
