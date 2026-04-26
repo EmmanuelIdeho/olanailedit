@@ -4,6 +4,24 @@ A single-page appointment booking website for Ola's Nailedit Acrylic Nails.
 
 ## Setup
 
+# Environment variables
+Create a .env file based on the given .env.template file
+```env
+SECRET_KEY=<your_secret_key_here>
+DB_NAME=<postgres_database_name>
+DB_USER=<postgres_database_username>
+DB_PASSWORD=<postgres_database_password>
+DB_HOST=<postgres_database_host_name>
+DB_PORT=<postgres_database_port_number>
+
+EMAIL_HOST_USER=<sendgrid_verified_sender_email>
+SENDGRID_API_KEY=<sendgrid_api_key>
+
+SETTING_DEBUG=True #False, in production
+SETTING_ALLOWED=* # In production, your deployment domain
+CSRF_TRUSTED_ORIGINS=http://0.0.0.0:8000 # In production, your deployment domain with https tag included
+```
+# Local without Docker 
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -18,6 +36,12 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+# Local with Docker
+```bash
+docker-compose up --build
+
+```
+
 ## Admin Panel
 
 Visit `/admin/` and log in to manage:
@@ -30,21 +54,9 @@ Visit `/admin/` and log in to manage:
 | **Available Time Slots** | Days and times clients can book |
 | **Appointments** | View and update booking status (pending/confirmed/cancelled) |
 
-
-## Production Checklist
-
-- Set `DEBUG = False` in `settings.py`
-- Set a real `SECRET_KEY`
-- Set `ALLOWED_HOSTS` to your domain
-- Configure a real database (PostgreSQL recommended)
-- Set up static file serving (WhiteNoise or Nginx)
-- Add email backend for booking confirmations
-
 ## Gallery & Hero Images
 
-Images are stored as URLs (Unsplash or your own CDN). To use your own photos:
-1. Upload them to a hosting service (Cloudinary, AWS S3, etc.)
-2. Paste the URL into the admin panel
+Images are stored on server, and uploaded through the admin side with a button.
 
 ## Structure
 
@@ -64,3 +76,13 @@ olanailedit/
     ├── settings.py
     └── urls.py
 ```
+## Tech Stack
+- **Django 6.0** — web framework [https://www.djangoproject.com/]
+- **PostgreSQL** — production database [https://www.postgresql.org/]
+- **Docker** — containerisation [https://www.docker.com/]
+- **WhiteNoise** — static file serving [https://whitenoise.readthedocs.io/en/latest/]
+- **SendGrid** — transactional email [https://www.twilio.com/docs/sendgrid]
+- **django-unfold** — modern admin UI [https://unfoldadmin.com/?utm_medium=github&utm_source=unfold]
+
+## Deployment
+Deployed on Railway. Push to the connected GitHub repository to trigger an automatic redeploy. Environment variables are managed through Railway's dashboard.
